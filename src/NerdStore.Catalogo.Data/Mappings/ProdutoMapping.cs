@@ -33,7 +33,7 @@ namespace NerdStore.Catalogo.Data.Mappings
                     .HasColumnType("int");
 
                 pm.Property(pm => pm.Profundidade)
-                    .HasColumnName("Altura")
+                    .HasColumnName("Profundidade")
                     .HasColumnType("int");
             });
 
@@ -50,7 +50,7 @@ namespace NerdStore.Catalogo.Data.Mappings
             builder.Property(c => c.Nome)
                 .IsRequired()
                 .HasColumnType("varchar(250)");
-            
+
             builder.HasMany(c => c.Produtos)
                 .WithOne(p => p.Categoria)
                 .HasForeignKey(p => p.CategoriaId);
