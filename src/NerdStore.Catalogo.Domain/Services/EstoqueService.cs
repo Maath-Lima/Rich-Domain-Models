@@ -22,7 +22,7 @@ namespace NerdStore.Catalogo.Domain.Services
 
             if (produto is null) return false;
 
-            if (produto.PossuiEstoque(quantidade)) return false;
+            if (!produto.PossuiEstoque(quantidade)) return false;
 
             produto.DebitarEstoque(quantidade);
 

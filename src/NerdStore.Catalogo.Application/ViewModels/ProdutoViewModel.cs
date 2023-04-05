@@ -44,6 +44,6 @@ namespace NerdStore.Catalogo.Application.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int Profundidade { get; set; }
 
-        public IEnumerable<CategoriaViewModel> Categorias { get; set; }
+        public IEnumerable<CategoriaViewModel>? Categorias { get; set; }
     }
 }
