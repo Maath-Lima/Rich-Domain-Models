@@ -24,6 +24,7 @@ namespace NerdStore.Catalogo.Domain
 
         public Guid CategoriaId { get; private set; }
 
+        // EF Rel.
         public Categoria Categoria { get; private set; }
 
         protected Produto()

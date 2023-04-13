@@ -4,7 +4,6 @@ namespace NerdStore.Catalogo.Domain
 {
     public class Categoria : Entity
     {
-
         public string Nome { get; private set; }
 
         public int Codigo { get; private set; }

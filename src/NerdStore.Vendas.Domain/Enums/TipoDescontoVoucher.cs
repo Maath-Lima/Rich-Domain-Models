@@ -2,6 +2,7 @@
 {
     public enum TipoDescontoVoucher
     {
-
+        Porcentagem,
+        Valor
     }
 }
