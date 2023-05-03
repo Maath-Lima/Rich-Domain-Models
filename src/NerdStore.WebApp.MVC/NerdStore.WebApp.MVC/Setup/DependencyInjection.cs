@@ -9,6 +9,7 @@ using NerdStore.Catalogo.Domain.Services;
 using NerdStore.Catalogo.Domain.Services.Interfaces;
 using NerdStore.Core.Bus;
 using NerdStore.Core.Bus.Interfaces;
+using NerdStore.Vendas.Application.Commands;
 
 namespace NerdStore.WebApp.MVC.Setup
 {
@@ -26,6 +27,9 @@ namespace NerdStore.WebApp.MVC.Setup
             services.AddScoped<CatalogoContext>();
 
             services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoEventHandler>();
+
+            // Vendas
+            services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, PedidoCommandHandler>();
         }
     }
 }
