@@ -1,16 +1,53 @@
 ﻿using MediatR;
 using NerdStore.Core.Messages;
+using NerdStore.Vendas.Domain;
+using NerdStore.Vendas.Domain.Interfaces;
 
 namespace NerdStore.Vendas.Application.Commands
 {
     public class PedidoCommandHandler :
         IRequestHandler<AdicionarItemPedidoCommand, bool>
     {
+        private readonly IPedidoRepository _pedidoRepository;
+
+        public PedidoCommandHandler(IPedidoRepository pedidoRepository)
+        {
+            _pedidoRepository = pedidoRepository;
+        }
+
         public async Task<bool> Handle(AdicionarItemPedidoCommand request, CancellationToken cancellationToken)
         {
             if (!ValidarComando(request)) return false;
 
-            return true;
+            var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(request.ClienteId);
+
+            var pedidoItem = new PedidoItem(request.ProdutoId, request.Nome, request.Quantidade, request.ValorUnitario);
+
+            if (pedido is null)
+            {
+                pedido = Pedido.PedidoFactory.NovoPedidoRascunho(request.ClienteId);
+
+                pedido.AdicionarItem(pedidoItem);
+
+                _pedidoRepository.Adicionar(pedido);
+            }
+            else
+            {
+                var pedidoItemExistente = pedido.PedidoItemExistente(pedidoItem);
+
+                pedido.AdicionarItem(pedidoItem);
+
+                if (pedidoItemExistente)
+                {
+                    _pedidoRepository.AtualizarItem(pedido.PedidoItems.FirstOrDefault(p => p.ProdutoId == pedidoItem.ProdutoId));
+                }
+                else
+                {
+                    _pedidoRepository.AdicionarItem(pedidoItem);
+                }
+            }
+
+            return await _pedidoRepository.UnitOfWork.Commit();
         }
 
         private bool ValidarComando(Command request)
