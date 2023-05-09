@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using NerdStore.Catalogo.Application.Services.Interfaces;
-using NerdStore.Core.Bus.Interfaces;
+using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Commands;
 
 namespace NerdStore.WebApp.MVC.Controllers
@@ -11,11 +13,19 @@ namespace NerdStore.WebApp.MVC.Controllers
         private readonly IMediatorHandler _mediatorHandler;
 
         public CarrinhoController(
+            INotificationHandler<DomainNotification> notifications,
             IProdutoAppService produtoAppService,
             IMediatorHandler mediatorHandler)
+            : base(notifications, mediatorHandler)
         {
             _produtoAppService = produtoAppService;
             _mediatorHandler = mediatorHandler;
+        }
+
+        [Route("meu-carrinho")]
+        public async Task<IActionResult> Index()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -29,7 +39,6 @@ namespace NerdStore.WebApp.MVC.Controllers
             if (produto.QuantidadeEstoque < quantidade)
             {
                 TempData["Erro"] = "Produto com estoque insuficiente";
-
                 return RedirectToAction("ProdutoDetalhe", "Vitrine", new { id });
             }
 
@@ -37,8 +46,12 @@ namespace NerdStore.WebApp.MVC.Controllers
 
             await _mediatorHandler.EnviarComando(command);
 
-            TempData["Erro"] = "Produto indisponível";
+            if (OperacaoValida())
+            {
+                return RedirectToAction("Index");
+            }
 
+            TempData["Erros"] = ObterMensagensErro();
             return RedirectToAction("ProdutoDetalhe", "Vitrine", new { id });
         }
     }
