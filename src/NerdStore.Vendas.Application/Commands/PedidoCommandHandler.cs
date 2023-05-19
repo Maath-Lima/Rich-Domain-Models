@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.DomainObjects.DTOs;
+using NerdStore.Core.Extensions;
 using NerdStore.Core.Messages;
+using NerdStore.Core.Messages.CommonMessages.IntegrationEvents;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Events;
 using NerdStore.Vendas.Domain;
@@ -12,7 +15,8 @@ namespace NerdStore.Vendas.Application.Commands
         IRequestHandler<AdicionarItemPedidoCommand, bool>,
         IRequestHandler<AtualizarItemPedidoCommand, bool>,
         IRequestHandler<RemoverItemPedidoCommand, bool>,
-        IRequestHandler<AplicarVoucherPedidoCommand, bool>
+        IRequestHandler<AplicarVoucherPedidoCommand, bool>,
+        IRequestHandler<IniciarPedidoCommand, bool>
     {
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IMediatorHandler _mediatorHandler;
@@ -168,6 +172,26 @@ namespace NerdStore.Vendas.Application.Commands
 
             pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
             pedido.AdicionarEvento(new VoucherAplicadoPedidoEvent(request.ClienteId, pedido.Id, voucher.Id));
+
+            _pedidoRepository.Atualizar(pedido);
+
+            return await _pedidoRepository.UnitOfWork.Commit();
+        }
+
+        public async Task<bool> Handle(IniciarPedidoCommand request, CancellationToken cancellationToken)
+        {
+            if (!ValidarComando(request)) return false;
+
+            var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(request.ClienteId);
+
+            pedido.IniciarPedido();
+
+            var itensList = new List<Item>();
+            pedido.PedidoItems.ForEach(i => itensList.Add(new Item { Id = i.ProdutoId, Quantidade = i.Quantidade }));
+
+            var listaProdutosPedido = new ListaProdutosPedido { PedidoId = pedido.Id, Itens = itensList };
+
+            pedido.AdicionarEvento(new PedidoIniciadoEvent(pedido.Id, pedido.ClienteId, listaProdutosPedido, pedido.ValorTotal, request.NomeCartao, request.NumeroCartao, request.ExpiracaoCartao, request.CvvCartao));
 
             _pedidoRepository.Atualizar(pedido);
 

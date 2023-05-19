@@ -59,7 +59,6 @@ namespace NerdStore.Vendas.Data
             if (sucesso)
             {
                 await _mediatorHandler.PublicarEventos(this);
-
             }
 
             return sucesso;
