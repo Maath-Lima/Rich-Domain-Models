@@ -33,11 +33,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Catalogo.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.WebApp.MVC", "src\NerdStore.WebApp.MVC\NerdStore.WebApp.MVC\NerdStore.WebApp.MVC.csproj", "{EB3FBC4B-03D4-4903-8C48-35825D011D30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Vendas.Domain", "src\NerdStore.Vendas.Domain\NerdStore.Vendas.Domain.csproj", "{ECDAA3BF-B80D-476E-B6D3-D4C0FCC0EF19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Vendas.Domain", "src\NerdStore.Vendas.Domain\NerdStore.Vendas.Domain.csproj", "{ECDAA3BF-B80D-476E-B6D3-D4C0FCC0EF19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Vendas.Application", "src\NerdStore.Vendas.Application\NerdStore.Vendas.Application.csproj", "{84679BC4-1976-41FF-AFF3-044F42D7D3CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Vendas.Application", "src\NerdStore.Vendas.Application\NerdStore.Vendas.Application.csproj", "{84679BC4-1976-41FF-AFF3-044F42D7D3CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Vendas.Data", "src\NerdStore.Vendas.Data\NerdStore.Vendas.Data.csproj", "{997143F7-9172-4D23-AFD2-FD159B5DDA9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Vendas.Data", "src\NerdStore.Vendas.Data\NerdStore.Vendas.Data.csproj", "{997143F7-9172-4D23-AFD2-FD159B5DDA9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Pagamentos.Business", "src\NerdStore.Pagamentos.Business\NerdStore.Pagamentos.Business.csproj", "{166FDA6B-90AA-4D55-9851-0152CCA62DBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Pagamentos.AntiCorruption", "src\NerdStore.Pagamentos.AntiCorruption\NerdStore.Pagamentos.AntiCorruption.csproj", "{10D9BD61-5866-425D-9DCD-18EDEE60A12C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Pagamentos.Data", "src\NerdStore.Pagamentos.Data\NerdStore.Pagamentos.Data.csproj", "{2BD2D13F-618F-4D06-ADE0-6573CF29AEC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +87,18 @@ Global
 		{997143F7-9172-4D23-AFD2-FD159B5DDA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{997143F7-9172-4D23-AFD2-FD159B5DDA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{997143F7-9172-4D23-AFD2-FD159B5DDA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{166FDA6B-90AA-4D55-9851-0152CCA62DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166FDA6B-90AA-4D55-9851-0152CCA62DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166FDA6B-90AA-4D55-9851-0152CCA62DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166FDA6B-90AA-4D55-9851-0152CCA62DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D9BD61-5866-425D-9DCD-18EDEE60A12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D9BD61-5866-425D-9DCD-18EDEE60A12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D9BD61-5866-425D-9DCD-18EDEE60A12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D9BD61-5866-425D-9DCD-18EDEE60A12C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BD2D13F-618F-4D06-ADE0-6573CF29AEC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BD2D13F-618F-4D06-ADE0-6573CF29AEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BD2D13F-618F-4D06-ADE0-6573CF29AEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BD2D13F-618F-4D06-ADE0-6573CF29AEC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +120,9 @@ Global
 		{ECDAA3BF-B80D-476E-B6D3-D4C0FCC0EF19} = {9DE8D21B-8F0D-40E3-B3B4-FED795F06733}
 		{84679BC4-1976-41FF-AFF3-044F42D7D3CE} = {9DE8D21B-8F0D-40E3-B3B4-FED795F06733}
 		{997143F7-9172-4D23-AFD2-FD159B5DDA9D} = {9DE8D21B-8F0D-40E3-B3B4-FED795F06733}
+		{166FDA6B-90AA-4D55-9851-0152CCA62DBC} = {CFFB90C6-CC1D-4541-A8F4-09FC9491AA63}
+		{10D9BD61-5866-425D-9DCD-18EDEE60A12C} = {CFFB90C6-CC1D-4541-A8F4-09FC9491AA63}
+		{2BD2D13F-618F-4D06-ADE0-6573CF29AEC7} = {CFFB90C6-CC1D-4541-A8F4-09FC9491AA63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FC7AB48-D70D-458A-BD11-53566EE1CDB7}
